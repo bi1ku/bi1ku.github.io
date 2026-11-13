@@ -16,7 +16,7 @@ test("portfolio renders its real content and resume is a PDF", async () => {
   assert.match(html, /<title>Owen Shi/);
   assert.match(html, /Harvard/);
   assert.match(html, /id="projects"/);
-  assert.match(html, /Requiem/);
+  assert.match(html, /id="bik"/);
   assert.match(html, /SpringForge/);
   assert.match(html, /<video[^>]*controls/);
   assert.match(html, /id="experience"/);

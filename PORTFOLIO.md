@@ -22,9 +22,9 @@ This build reuses the same portfolio component and stylesheet without requiring 
 
 The featured avionics flight computer was designed by Owen for HUAC Rocketry’s IREC 10k rocket. Its schematic, routed PCB screenshot, and 3D render were supplied from Owen’s Desktop in November 2026 and are stored in `public/projects/avionics/`. Hardware descriptions are based on those images. The page does not claim completed firmware, bench testing, or flight validation.
 
-## Requiem demo
+## bik demo
 
-The Requiem section includes an 11-second GIF with explicit play/stop controls and a static poster. It does not autoplay. Assets and captured command output live in `public/projects/requiem/`. To regenerate with Pillow installed, run `python3 scripts/generate-requiem-demo.py /path/to/built/requiem`. The capture records the compiler commit and actual outputs; playback timing is illustrative, not a benchmark.
+The bik section includes a 12-second GIF with explicit play/stop controls and a static poster. It does not autoplay. Assets and captured command output live in `public/projects/bik/`. To regenerate with Pillow installed, run `python3 scripts/generate-bik-demo.py /path/to/bik`. The capture records the compiler commit, source, actual token output, and generated MIPS assembly. The demo shows constant folding of 6 × 7 to 42; it does not execute the assembly. Build bik at `build-local/execute` before regenerating. Playback timing is illustrative, not a benchmark.
 
 ## SpringForge demo
 

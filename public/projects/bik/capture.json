@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/Bi1ku/bik",
+  "commit": "4016b4685695979d18faf233e8410e16778a9606",
+  "source": "value = 6 * 7;\nmessage = \"hello, world!\";\n\nlog(value);\nlog(message);",
+  "command": "cd build-local && ./execute",
+  "compiler_stdout": "{\n\t{ IDENTIFIER: value },\n\t{ ASSIGNMENT: = },\n\t{ NUM: 6 },\n\t{ BIN_OP: * },\n\t{ NUM: 7 },\n\t{ NEWLINE: newline },\n\t{ IDENTIFIER: message },\n\t{ ASSIGNMENT: = },\n\t{ STRING: hello, world! },\n\t{ NEWLINE: newline },\n\t{ KEYWORD: log },\n\t{ PAREN_L: ( },\n\t{ IDENTIFIER: value },\n\t{ PAREN_R: ) },\n\t{ NEWLINE: newline },\n\t{ KEYWORD: log },\n\t{ PAREN_L: ( },\n\t{ IDENTIFIER: message },\n\t{ PAREN_R: ) },\n\t{ NEWLINE: newline },\n\t{ END: END }\n}\n",
+  "assembly": ".data\n\tvalue: .word 42\n\tmessage: .asciiz \"hello, world!\"\n\n.text\n.globl main\nmain:\n\tli $v0, 1\n\tli $a0, 42\n\tsyscall\n\tli $v0, 4\n\tla $a0, message\n\tsyscall\n\tli $v0, 10\n\tsyscall\n",
+  "note": "Actual compiler output. Assembly is generated, not executed. Playback is paced for readability."
+}

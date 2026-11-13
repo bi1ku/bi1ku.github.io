@@ -15,7 +15,7 @@ export default function ScrollTransitions() {
       ".technical-heading",
       ".hardware-grid > div",
       ".avionics-documents > figure",
-      ".requiem-project > *",
+      ".bik-project > *",
       ".rocket-project > .project-copy",
       ".rocket-media > figure",
       ".featured-project > *",

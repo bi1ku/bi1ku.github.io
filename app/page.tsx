@@ -33,13 +33,6 @@ const otherProjects = [
       "Built with Leo Ling for New York’s 10th district. Lets young voters look up congressional representatives and browse bills using filters, pagination, and detail views.",
   },
   {
-    name: "bik",
-    category: "Compiler · In progress",
-    tech: "C · MIPS Assembly · CMake",
-    description:
-      "Implemented a lexer, AST parser, variable environments, and constant folding for a compiler targeting MIPS assembly. Code generation is incomplete.",
-  },
-  {
     name: "ascii",
     category: "Video conversion",
     tech: "Python",
@@ -273,37 +266,41 @@ export default function Home() {
             </div>
           </article>
 
-          <article className="requiem-project" id="requiem">
+          <article className="bik-project" id="bik">
             <div className="project-copy">
-              <p className="eyebrow">Language design</p>
-              <h3>Requiem</h3>
+              <p className="eyebrow">Compiler design · In progress</p>
+              <h3>bik</h3>
               <p className="project-summary">
-                An object-oriented language, compiler, and virtual machine
-                written in C11.
+                A compiler for a custom language, written in C and targeting
+                MIPS assembly.
               </p>
               <p>
-                The compiler turns source code into portable bytecode through a
-                lexer, Pratt parser, AST optimizer, and bytecode compiler. A
-                stack-based virtual machine executes the result.
+                I built bik to explore the compiler pipeline: tokenizing source,
+                parsing an abstract syntax tree, resolving variables, folding
+                constant expressions, and generating assembly. MIPS code
+                generation is still in progress.
               </p>
               <ul>
                 <li>
-                  Classes, inheritance, lexical scopes, and first-class
-                  functions.
+                  Operator precedence, variable environments, arithmetic, and
+                  string concatenation with automatic number conversion.
                 </li>
                 <li>
-                  Constant folding, dead-code elimination, and bounded loop
-                  unrolling.
+                  Integer functions with up to four arguments, conditionals,
+                  recursion, and return statements.
                 </li>
-                <li>Disassembler, embeddable C API, and regression tests.</li>
+                <li>
+                  Classes with default fields, separate instances, and
+                  class-level methods.
+                </li>
               </ul>
-              <p className="tech">C11 · Bytecode · Virtual machines</p>
+              <p className="tech">C · CMake · MIPS assembly</p>
               <div className="links">
-                <External href="https://github.com/Bi1ku/requiem">
+                <External href="https://github.com/Bi1ku/bik">
                   Source code
                 </External>
-                <External href="https://github.com/Bi1ku/requiem/blob/main/docs/architecture.md">
-                  Architecture
+                <External href="https://github.com/Bi1ku/bik#readme">
+                  Language &amp; usage
                 </External>
               </div>
             </div>

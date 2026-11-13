@@ -613,11 +613,11 @@ footer a {
   }
 }
 
-.requiem-project {
+.bik-project {
   padding: 42px 0 48px;
   border-bottom: 1px solid var(--line);
 }
-.requiem-project > .project-copy {
+.bik-project > .project-copy {
   max-width: 740px;
 }
 .project-demo {
@@ -671,7 +671,7 @@ footer a {
   flex-wrap: wrap;
 }
 @media (max-width: 600px) {
-  .requiem-project {
+  .bik-project {
     padding: 32px 0;
   }
   .demo-toolbar {

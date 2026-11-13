@@ -27,10 +27,10 @@ The static site is written to `dist-pages/`.
 - Project photos, videos, and demo media are stored in `public/projects/`.
 - Project metadata and content notes are in `PORTFOLIO.md`.
 
-The Requiem project has a short demo GIF built from real compiler output. To regenerate it, install Pillow and run:
+The bik project has a short demo GIF built from real compiler output. To regenerate it, install Pillow, build bik at `build-local/execute`, and run:
 
 ```bash
-python3 scripts/generate-requiem-demo.py /path/to/built/requiem
+python3 scripts/generate-bik-demo.py /path/to/bik
 ```
 
 ## Deployment
