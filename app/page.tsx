@@ -278,33 +278,36 @@ export default function Home() {
 
           <article className="bik-project" id="bik">
             <div className="project-copy">
-              <p className="eyebrow">Compiler design · In progress</p>
+              <p className="eyebrow">Language design · Systems programming</p>
               <h3>bik</h3>
               <p className="project-summary">
-                A compiler for a custom language, written in C and targeting
-                MIPS assembly.
+                From a language I designed to assembly that runs.
               </p>
               <p>
-                I built bik to explore the compiler pipeline: tokenizing source,
-                parsing an abstract syntax tree, resolving variables, folding
-                constant expressions, and generating assembly. MIPS code
-                generation is still in progress.
+                I’m building bik in C, from a handwritten lexer and AST parser
+                to a MIPS code generator. It compiles recursive algorithms and
+                class hierarchies into assembly that executes in SPIM, with
+                constant folding along the way.
               </p>
               <ul>
                 <li>
-                  Operator precedence, variable environments, arithmetic, and
-                  string concatenation with automatic number conversion.
+                  Single inheritance, method overrides, and instance method
+                  calls, with independent fields for each object.
                 </li>
                 <li>
-                  Integer functions with up to four arguments, conditionals,
-                  recursion, and return statements.
+                  Recursive and mutually recursive integer functions, nested
+                  calls, branching, and up to four arguments.
                 </li>
                 <li>
-                  Classes with default fields, separate instances, and
-                  class-level methods.
+                  A command-line compiler and regression suite covering runtime
+                  output, expression edge cases, and invalid programs.
                 </li>
               </ul>
               <p className="tech">C · CMake · MIPS assembly</p>
+              <p className="bik-development-note">
+                In active development. Integer execution is supported; local
+                variable scopes and runtime string/decimal updates are unfinished.
+              </p>
               <div className="links">
                 <External href="https://github.com/Bi1ku/bik">
                   Source code

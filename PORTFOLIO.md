@@ -24,7 +24,11 @@ The featured avionics flight computer was designed by Owen for HUAC Rocketry’s
 
 ## bik demo
 
-The bik section includes a 12-second GIF with explicit play/stop controls and a static poster. It does not autoplay. Assets and captured command output live in `public/projects/bik/`. To regenerate with Pillow installed, run `python3 scripts/generate-bik-demo.py /path/to/bik`. The capture records the compiler commit, source, actual token output, and generated MIPS assembly. The demo shows constant folding of 6 × 7 to 42; it does not execute the assembly. Build bik at `build-local/execute` before regenerating. Playback timing is illustrative, not a benchmark.
+The bik section reflects compiler commit `1ff737f68df68f5577fb0cf3fd6f9a1baac81894`, checked against GitHub HEAD on November 12, 2026. It highlights inheritance, method overrides, independent instances, recursive integer functions, nested calls, and the CLI/regression suite. Runtime string/decimal updates and function-local variable scopes remain unfinished.
+
+The interactive demo has three selectable programs: the repository’s character battle and recursive algorithms, plus a constant-folding example. Each includes full source, full generated MIPS, downloadable files, and actual SPIM stdout. The character health visualization follows captured output during user-initiated replay. Reduced-motion visitors see completed results immediately. This is a replay of verified execution, not a compiler running in the browser or a performance benchmark.
+
+Regenerate with `python3 scripts/generate-bik-demo.py /path/to/bik` after building `build-local/execute` and installing SPIM. Use `--compiler` for an alternate binary path. The script fails if any runtime output differs from the expected result. All capture data and downloadable source/assembly files live in `public/projects/bik/`. The earlier GIF and poster remain as legacy assets; the page no longer uses them.
 
 ## SpringForge demo
 

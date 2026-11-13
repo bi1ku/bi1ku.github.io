@@ -27,11 +27,13 @@ The static site is written to `dist-pages/`.
 - Project photos, videos, and demo media are stored in `public/projects/`.
 - Project metadata and content notes are in `PORTFOLIO.md`.
 
-The bik project has a short demo GIF built from real compiler output. To regenerate it, install Pillow, build bik at `build-local/execute`, and run:
+The bik project includes an interactive showcase of inheritance, recursive algorithms, and constant folding. Source, generated MIPS, and actual SPIM output are captured together; the browser replays verified results. To regenerate, install SPIM, build bik at `build-local/execute`, and run:
 
 ```bash
 python3 scripts/generate-bik-demo.py /path/to/bik
 ```
+
+Use `--compiler /path/to/execute` for an alternate build location. The script checks each program’s output before writing `public/projects/bik/capture.json`, its bundled copy at `app/bik-capture.json`, and downloadable `.bik` / `.asm` files. The source checkout should be clean and the compiler freshly built to keep the recorded commit accurate.
 
 ## Deployment
 

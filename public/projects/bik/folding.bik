@@ -1,0 +1,7 @@
+answer = (7 + 5) * 3;
+message = "computed at compile time";
+
+log(answer);
+log("\n");
+log(message);
+log("\n");

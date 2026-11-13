@@ -643,67 +643,242 @@ footer a {
 .bik-project > .project-copy {
   max-width: 740px;
 }
+.bik-development-note {
+  margin-top: 12px;
+  max-width: 640px;
+  font-size: 12px !important;
+  color: var(--muted) !important;
+}
 .project-demo {
   margin-top: 30px;
+  min-width: 0;
 }
-.demo-toolbar {
+.bik-demo-shell {
+  border: 1px solid #ced7d9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.bik-demo-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 12px 18px;
-  border: 1px solid var(--line);
-  border-bottom: 0;
-  border-radius: 4px 4px 0 0;
-  background: #f0f1ee;
-  font-size: 13px;
+  gap: 12px;
+  padding: 17px 22px;
+  background: #e9eeec;
+  color: #365354;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
 }
-.demo-duration {
-  color: var(--muted);
+.bik-live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: #467a69;
+}
+.bik-capture-label {
+  font-weight: 400;
+  letter-spacing: 0;
   font-size: 11px;
-  margin-left: 12px;
 }
-.demo-toolbar button {
-  border: 1px solid var(--accent);
-  border-radius: 3px;
-  padding: 6px 12px;
+.bik-example-picker {
+  display: flex;
+  background: #f2f4f1;
+  border-block: 1px solid #d9e0dd;
+}
+.bik-example-picker button {
+  flex: 1;
+  padding: 16px 18px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+.bik-example-picker button[aria-pressed="true"] {
+  border-bottom-color: var(--accent);
   color: var(--accent);
   background: var(--paper);
-  font: inherit;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background-color 160ms ease, color 160ms ease;
 }
-.demo-toolbar button:hover {
-  background: #dce7e9;
+.bik-example-index {
+  margin-right: 10px;
+  font: 10px ui-monospace, Menlo, monospace;
+  opacity: .75;
 }
-.demo-toolbar button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-.project-demo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--line);
-}
-.project-demo figcaption {
+.bik-demo-context {
   display: flex;
   justify-content: space-between;
-  gap: 10px 24px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  padding: 22px;
+}
+.bik-demo-context h4 {
+  font-size: 17px;
+  margin-bottom: 7px;
+}
+.bik-demo-context p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+  max-width: 620px;
+}
+.bik-replay {
+  flex-shrink: 0;
+  border: 1px solid #285b75;
+  border-radius: 4px;
+  padding: 9px 13px;
+  background: #285b75;
+  color: #fff;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.bik-replay:hover { background: #1d465c; }
+.bik-replay span { margin-right: 5px; }
+.project-demo button:focus-visible,
+.bik-code:focus-visible {
+  outline: 2px solid #5d92a8;
+  outline-offset: -3px;
+}
+.bik-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  border-top: 1px solid #d9e0dd;
+}
+.bik-editor {
+  background: #1e2b32;
+  color: #d9e3e7;
+  min-width: 0;
+}
+.bik-pane-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 18px;
+  border-bottom: 1px solid #34434a;
+  height: 47px;
+}
+.bik-pane-toolbar button {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 13px 10px 11px;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  color: #9badb5;
+  cursor: pointer;
+}
+.bik-pane-toolbar button[aria-pressed="true"] {
+  color: #e6f2ed;
+  border-bottom-color: #90b6a6;
+}
+.bik-pane-toolbar a { color: #b5c9ce; font-size: 11px; text-decoration: none; }
+.bik-filename {
+  padding: 14px 23px 4px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #9badb5;
+  font: 11px ui-monospace, Menlo, monospace;
+}
+.bik-filename > span { font-size: 9px; }
+.bik-code {
+  color: #d9e3e7;
+  height: 375px;
+  margin: 0;
+  padding: 14px 23px 25px 16px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  tab-size: 2;
+  scrollbar-color: #53656c #1e2b32;
+  font: 12px/1.85 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.bik-code-line { display: flex; min-height: 22px; }
+.bik-line-number {
+  width: 26px;
+  flex-shrink: 0;
+  text-align: right;
+  margin-right: 18px;
+  color: #81939b;
+  user-select: none;
+}
+.bik-keyword { color: #b5c9ff; }
+.bik-string { color: #afd6ba; }
+.bik-number { color: #efc395; }
+.bik-result { min-width: 0; background: #f1f3ef; }
+.bik-pipeline {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 12px 22px;
+  list-style: none;
+  border-bottom: 1px solid #d9e0dd;
+}
+.bik-pipeline li { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #79817f; }
+.bik-pipeline li span {
+  display: grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  border: 1px solid #c6ceca;
+  border-radius: 50%;
+  font-size: 10px;
+}
+.bik-pipeline li[data-active="true"] { color: #365c4e; }
+.bik-pipeline li[data-active="true"] span { background: #dce8df; border-color: #a6bfb1; }
+.bik-result-visual { padding: 18px 24px; height: 188px; }
+.bik-tree { display: grid; gap: 2px; font: 11px/1.7 ui-monospace, Menlo, monospace; color: #46646b; }
+.bik-tree-branch { padding-left: 12px; }
+.bik-tree-branch > span { color: #285b75; font-weight: 600; }
+.bik-health-label { display: flex; justify-content: space-between; font-size: 11px; margin-top: 12px; }
+.bik-health-label strong { font-weight: 600; }
+.bik-health-label strong span { font-weight: 400; color: var(--muted); }
+.bik-health-track { height: 6px; margin-top: 6px; border-radius: 3px; background: #dce1dc; overflow: hidden; }
+.bik-health-track > div { height: 100%; background: #5b8372; transition: width 400ms ease; }
+.bik-health-legend { display: flex; justify-content: space-between; gap: 15px; margin-top: 7px; color: var(--muted); font-size: 10px; }
+.bik-health-legend b { font-weight: 500; color: #3e6352; margin-left: 5px; }
+.bik-algorithms { display: grid; height: 100%; align-content: center; gap: 9px; }
+.bik-algorithms > div { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #dce1dc; padding-bottom: 6px; }
+.bik-algorithms code { font: 12px ui-monospace, Menlo, monospace; color: #46646b; }
+.bik-algorithms strong { font-size: 21px; font-weight: 500; color: #365c4e; }
+.bik-folding { display: grid; gap: 12px; align-content: center; height: 100%; }
+.bik-folding code { font: 17px ui-monospace, Menlo, monospace; color: #46646b; }
+.bik-folding > span { font-size: 11px; color: var(--muted); }
+.bik-folding strong { color: #365c4e; }
+.bik-terminal { background: #25343a; margin: 0 16px; padding: 13px 16px; border-radius: 4px; color: #d9e5df; }
+.bik-terminal-heading { display: flex; justify-content: space-between; font: 10px ui-monospace, Menlo, monospace; color: #b2c5c4; }
+.bik-terminal-heading > span:last-child { color: #afd6ba; }
+.bik-command { font: 10px/1.5 ui-monospace, Menlo, monospace; color: #9eafb6; margin: 13px 0 8px; }
+.bik-terminal pre { margin: 0; padding: 0; color: #d9e5df; min-height: 112px; overflow-wrap: anywhere; white-space: pre-wrap; font: 11px/1.7 ui-monospace, Menlo, monospace; }
+.bik-demo-status { font-size: 10px; color: #496a57; margin: 10px 20px 12px; }
+.project-demo figcaption { display: flex; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; }
+@media (prefers-reduced-motion: reduce) {
+  .bik-health-track > div { transition: none; }
+}
+@media (max-width: 800px) {
+  .bik-demo-context { align-items: flex-start; }
+  .bik-workbench { grid-template-columns: 1fr; }
+  .bik-code { height: 300px; }
+  .bik-result-visual { height: auto; min-height: 188px; }
+  .bik-example-picker button { padding: 14px 12px; }
+  .bik-example-index { display: block; margin-bottom: 3px; }
 }
 @media (max-width: 600px) {
-  .bik-project {
-    padding: 32px 0;
-  }
-  .demo-toolbar {
-    padding: 10px 12px;
-  }
-  .demo-duration {
-    display: block;
-    margin-left: 0;
-  }
+  .bik-project { padding: 32px 0; }
+  .bik-demo-heading { padding: 14px; font-size: 9px; letter-spacing: 1px; }
+  .bik-capture-label { font-size: 9px; }
+  .bik-demo-context { flex-direction: column; gap: 14px; padding: 18px 14px; }
+  .bik-example-picker button { font-size: 11px; padding: 12px 10px; }
+  .bik-code { font-size: 11px; padding-left: 10px; }
+  .bik-line-number { margin-right: 12px; }
+  .bik-result-visual { padding-inline: 18px; }
 }
 
 .simulation-demo {
