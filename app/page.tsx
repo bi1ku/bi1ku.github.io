@@ -96,27 +96,37 @@ export default function Home() {
       </header>
       <main id="main">
         <section className="intro" aria-labelledby="intro-title">
-          <p className="eyebrow">
-            Electrical Engineering &amp; Computer Science · Harvard College
-          </p>
-          <h1 id="intro-title">Owen Shi</h1>
-          <p className="intro-description">
-            I design electronics and build compilers, robotics software, and web
-            applications. I’m a freshman at Harvard, working with the
-            undergraduate rocketry and robotics teams.
-          </p>
-          <div className="links">
-            <External href="https://github.com/Bi1ku">GitHub</External>
-            <External href="https://www.linkedin.com/in/owen-shi-14a5a426a/">
-              LinkedIn
-            </External>
-            <a href="mailto:2008owenshi@gmail.com">
-              Email <span aria-hidden="true">↗</span>
-            </a>
-            <a href="/Owen_Shi_Resume.pdf" target="_blank" rel="noreferrer">
-              Resume <span className="link-note">PDF ↗</span>
-            </a>
+          <div className="intro-copy">
+            <p className="eyebrow">
+              Electrical Engineering &amp; Computer Science · Harvard College
+            </p>
+            <h1 id="intro-title">Owen Shi</h1>
+            <p className="intro-description">
+              I design electronics and build compilers, robotics software, and web
+              applications. I’m a freshman at Harvard, working with the
+              undergraduate rocketry and robotics teams.
+            </p>
+            <div className="links">
+              <External href="https://github.com/Bi1ku">GitHub</External>
+              <External href="https://www.linkedin.com/in/owen-shi-14a5a426a/">
+                LinkedIn
+              </External>
+              <a href="mailto:2008owenshi@gmail.com">
+                Email <span aria-hidden="true">↗</span>
+              </a>
+              <a href="/Owen_Shi_Resume.pdf" target="_blank" rel="noreferrer">
+                Resume <span className="link-note">PDF ↗</span>
+              </a>
+            </div>
           </div>
+          <img
+            className="intro-portrait"
+            src="/owen-shi.png"
+            alt="Owen Shi smiling"
+            width={800}
+            height={800}
+            fetchPriority="high"
+          />
         </section>
 
         <section id="projects" aria-labelledby="projects-title">

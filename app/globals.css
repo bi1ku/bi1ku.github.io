@@ -104,7 +104,21 @@ footer {
 }
 .intro {
   padding: 75px 0 65px;
-  max-width: 780px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  align-items: center;
+  gap: 64px;
+}
+.intro-copy {
+  min-width: 0;
+}
+.intro-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  border: 1px solid var(--line);
 }
 .eyebrow {
   font-size: 11px;
@@ -414,6 +428,10 @@ footer a {
   }
 }
 @media (max-width: 800px) {
+  .intro {
+    grid-template-columns: minmax(0, 1fr) 200px;
+    gap: 32px;
+  }
   main,
   .site-header,
   footer {
@@ -461,6 +479,11 @@ footer a {
   }
   .intro {
     padding: 48px 0;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .intro-portrait {
+    width: 180px;
   }
   .intro .eyebrow {
     font-size: 10px;
