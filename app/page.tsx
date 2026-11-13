@@ -114,6 +114,9 @@ export default function Home() {
           </p>
           <div className="links">
             <External href="https://github.com/Bi1ku">GitHub</External>
+            <External href="https://www.linkedin.com/in/owen-shi-14a5a426a/">
+              LinkedIn
+            </External>
             <a href="mailto:2008owenshi@gmail.com">
               Email <span aria-hidden="true">↗</span>
             </a>
@@ -225,8 +228,8 @@ export default function Home() {
                 >
                   <img
                     src="/projects/avionics/schematic.png"
-                    width="1742"
-                    height="848"
+                    width="1704"
+                    height="1310"
                     loading="lazy"
                     alt="Flight-computer schematic showing the STM32F405, barometer, IMU, regulator, microSD socket, debug header, and output circuitry."
                   />
@@ -520,6 +523,10 @@ export default function Home() {
                 <a href="mailto:oshi1@college.harvard.edu">
                   oshi1@college.harvard.edu
                 </a>
+                <br />
+                <External href="https://www.linkedin.com/in/owen-shi-14a5a426a/">
+                  LinkedIn
+                </External>
               </p>
             </div>
           </div>
