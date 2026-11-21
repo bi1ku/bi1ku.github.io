@@ -180,8 +180,8 @@ export default function Home() {
                 >
                   <img
                     src="/projects/avionics/board-3d.png"
-                    width="872"
-                    height="1342"
+                    width="904"
+                    height="1262"
                     alt="3D CAD render of Owen’s HUACR Avionics v1.0 PCB, showing the microcontroller, connectors, sensor packages, and four mounting holes."
                   />
                 </a>
@@ -231,8 +231,8 @@ export default function Home() {
                 >
                   <img
                     src="/projects/avionics/schematic.png"
-                    width="1704"
-                    height="1310"
+                    width="1798"
+                    height="1358"
                     loading="lazy"
                     alt="Flight-computer schematic showing the STM32F405, barometer, IMU, regulator, microSD socket, debug header, and output circuitry."
                   />
@@ -256,8 +256,8 @@ export default function Home() {
                 >
                   <img
                     src="/projects/avionics/pcb-layout.png"
-                    width="876"
-                    height="1320"
+                    width="898"
+                    height="1212"
                     loading="lazy"
                     alt="KiCad PCB layout showing component placement, routed traces, copper fill, and mounting holes."
                   />
