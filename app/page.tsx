@@ -467,11 +467,11 @@ export default function Home() {
             </figure>
           </article>
 
-          <div className="more-projects">
+          <div className="more-projects" id="other-projects">
             <h3>Other projects</h3>
             <div className="project-grid">
               {otherProjects.map((project) => (
-                <article key={project.name}>
+                <article key={project.name} id={project.name.toLowerCase()}>
                   <p className="eyebrow">{project.category}</p>
                   <h4>
                     <External href={`https://github.com/Bi1ku/${project.name}`}>
@@ -526,7 +526,7 @@ export default function Home() {
                 Material UI · PostgreSQL · Prisma · MongoDB · VS Code · Android
                 Studio · Neovim · CMake · AWS · Google Cloud · Supabase · KiCad
               </p>
-              <h3>Contact</h3>
+              <h3 id="contact">Contact</h3>
               <p className="contact-emails">
                 <a href="mailto:2008owenshi@gmail.com">2008owenshi@gmail.com</a>
                 <br />
