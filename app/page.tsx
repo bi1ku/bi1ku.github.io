@@ -46,12 +46,12 @@ const experience = [
   {
     dates: "Sep 2026 — Present",
     organization: "Harvard Undergraduate Aerospace Collective",
-    role: "Engineer · Rocketry",
+    role: "Electrical Engineer",
   },
   {
     dates: "Sep 2026 — Present",
     organization: "Harvard Undergraduate Robotics Club",
-    role: "Electrical / Software Engineer",
+    role: "Electrical Engineer",
   },
   {
     dates: "Sep 2023 — Jul 2026",
@@ -62,15 +62,15 @@ const experience = [
   },
   {
     dates: "Feb 2022 — Sep 2025",
-    organization: "BCTCio",
-    role: "Full-Stack Web Developer Intern",
+    organization: "Future Sphere Education",
+    role: "Software Engineer Intern",
     description:
       "Maintained a UI library with 30+ components and helped develop Future Sphere Education’s portal for 4,000+ active students, 300+ classes, and 12+ teachers.",
   },
   {
     dates: "Jun — Sep 2024",
     organization: "NYC Department of Health and Mental Hygiene",
-    role: "Information Technology Specialist Intern",
+    role: "Information Technology Intern",
     description:
       "Supported recovery across 3,000+ computers after the CrowdStrike outage, imaged 62 PCs, and audited hardware inventory.",
   },
