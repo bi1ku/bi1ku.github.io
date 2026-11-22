@@ -52,7 +52,8 @@ export default function RoboticsProject() {
           </div>
         </dl>
         <p className="robotics-sources">
-          <a href="https://github.com/fusion479/deep" target="_blank" rel="noreferrer">Into the Deep code</a>
+          <a href="https://github.com/fusion479/centerstage" target="_blank" rel="noreferrer">CENTERSTAGE code</a>
+          {" · "}<a href="https://github.com/fusion479/deep" target="_blank" rel="noreferrer">Into the Deep code</a>
           {" · "}<a href="https://github.com/fusion479/decode" target="_blank" rel="noreferrer">DECODE code</a>
         </p>
         <a
