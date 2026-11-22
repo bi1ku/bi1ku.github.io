@@ -519,6 +519,20 @@ export default function Home() {
                 School. I’m now studying Electrical Engineering and Computer
                 Science at Harvard College in Cambridge, Massachusetts.
               </p>
+              <p>
+                Outside of building things, I like playing and watching sports:
+                basketball, badminton, football, soccer—the whole shebang. I’m
+                also into biking and video games, from FPS games to whatever
+                ridiculous game my friends have talked me into this week. I used
+                to take competitive gaming pretty seriously, but I’ve since
+                retired to preserve my remaining two brain cells.
+              </p>
+              <p>
+                Mostly, I’m a pretty laid-back guy who likes spending time with
+                family, being goofy with friends, and geeking out over tech.
+                Sometimes that turns into a project. Sometimes it’s just a good
+                afternoon doing absolutely nothing.
+              </p>
               <a href="/Owen_Shi_Resume.pdf" target="_blank" rel="noreferrer">
                 View Resume <span className="link-note">PDF ↗</span>
               </a>
