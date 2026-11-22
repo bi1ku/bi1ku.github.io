@@ -1,4 +1,5 @@
 import FlightComputerHistory from "./flight-computer-history";
+import RoboticsProject from "./robotics-project";
 import ProjectDemo from "./project-demo";
 import ScrollTransitions from "./scroll-transitions";
 import type { ReactNode } from "react";
@@ -135,6 +136,8 @@ export default function Home() {
             <h2 id="projects-title">Projects</h2>
             <span>Software &amp; engineering</span>
           </div>
+          <RoboticsProject />
+
           <article className="avionics-project" id="flight-computer">
             <div className="avionics-overview">
               <div className="project-copy">
@@ -322,70 +325,6 @@ export default function Home() {
             <ProjectDemo />
           </article>
 
-          <article className="rocket-project" id="model-rocket">
-            <div className="project-copy">
-              <p className="eyebrow">Design &amp; fabrication</p>
-              <h3>Model rocket</h3>
-              <p className="project-summary">
-                Designed, manufactured, and flight-tested a C6-5 model rocket.
-              </p>
-              <p>
-                I used OpenRocket for the rocket design and Onshape for CAD,
-                then made components with laser cutting and 3D printing. The
-                flight test captured both launch and parachute deployment.
-              </p>
-              <p className="tech">
-                OpenRocket · Onshape · Laser cutting · 3D printing
-              </p>
-            </div>
-            <div className="rocket-media">
-              <figure>
-                <a
-                  className="cad-link"
-                  href="/projects/rocket/cad.png"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img
-                    src="/projects/rocket/cad.png"
-                    width="1253"
-                    height="450"
-                    loading="lazy"
-                    alt="Onshape CAD assembly of the rocket, showing the nose cone, body, internal components, and fins."
-                  />
-                </a>
-                <figcaption>
-                  Onshape assembly and internal components ·{" "}
-                  <a
-                    href="/projects/rocket/cad.png"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View full size ↗
-                  </a>
-                </figcaption>
-              </figure>
-              <figure>
-                <video
-                  controls
-                  playsInline
-                  preload="none"
-                  aria-label="Model rocket launch and parachute deployment"
-                >
-                  <source src="/projects/rocket/launch.mp4" type="video/mp4" />
-                  Your browser does not support video.{" "}
-                  <a href="/projects/rocket/launch.mp4">
-                    Download the launch video
-                  </a>
-                  .
-                </video>
-                <figcaption>
-                  Flight test · Launch and parachute deployment
-                </figcaption>
-              </figure>
-            </div>
-          </article>
-
           <article className="featured-project" id="springforge">
             <div className="project-copy">
               <p className="eyebrow">Physics simulation</p>
@@ -467,6 +406,70 @@ export default function Home() {
                 </a>
               </figcaption>
             </figure>
+          </article>
+
+          <article className="rocket-project" id="model-rocket">
+            <div className="project-copy">
+              <p className="eyebrow">Design &amp; fabrication</p>
+              <h3>Model rocket</h3>
+              <p className="project-summary">
+                Designed, manufactured, and flight-tested a C6-5 model rocket.
+              </p>
+              <p>
+                I used OpenRocket for the rocket design and Onshape for CAD,
+                then made components with laser cutting and 3D printing. The
+                flight test captured both launch and parachute deployment.
+              </p>
+              <p className="tech">
+                OpenRocket · Onshape · Laser cutting · 3D printing
+              </p>
+            </div>
+            <div className="rocket-media">
+              <figure>
+                <a
+                  className="cad-link"
+                  href="/projects/rocket/cad.png"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src="/projects/rocket/cad.png"
+                    width="1253"
+                    height="450"
+                    loading="lazy"
+                    alt="Onshape CAD assembly of the rocket, showing the nose cone, body, internal components, and fins."
+                  />
+                </a>
+                <figcaption>
+                  Onshape assembly and internal components ·{" "}
+                  <a
+                    href="/projects/rocket/cad.png"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View full size ↗
+                  </a>
+                </figcaption>
+              </figure>
+              <figure>
+                <video
+                  controls
+                  playsInline
+                  preload="none"
+                  aria-label="Model rocket launch and parachute deployment"
+                >
+                  <source src="/projects/rocket/launch.mp4" type="video/mp4" />
+                  Your browser does not support video.{" "}
+                  <a href="/projects/rocket/launch.mp4">
+                    Download the launch video
+                  </a>
+                  .
+                </video>
+                <figcaption>
+                  Flight test · Launch and parachute deployment
+                </figcaption>
+              </figure>
+            </div>
           </article>
 
           <div className="more-projects" id="other-projects">
