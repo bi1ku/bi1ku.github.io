@@ -1,3 +1,4 @@
+import FlightComputerHistory from "./flight-computer-history";
 import ProjectDemo from "./project-demo";
 import ScrollTransitions from "./scroll-transitions";
 import type { ReactNode } from "react";
@@ -157,9 +158,9 @@ export default function Home() {
                   brings sensing, storage, and power onto a single PCB.
                 </p>
                 <p>
-                  The layout places the battery input and regulator at one end,
-                  the sensor packages near the microcontroller, and the external
-                  connections at the other end. Four mounting holes secure the
+                  The v1.2 layout places the controller near the center, the
+                  screw terminals along one edge, and the microSD footprint
+                  near the programming header. Four mounting holes secure the
                   board in the avionics assembly.
                 </p>
                 <p className="tech">KiCad · PCB design · STM32 · I²C · SPI</p>
@@ -170,6 +171,7 @@ export default function Home() {
                   <External href="/projects/avionics/pcb-layout.png">
                     PCB layout
                   </External>
+                  <FlightComputerHistory />
                 </div>
               </div>
               <figure className="avionics-render">
@@ -180,12 +182,12 @@ export default function Home() {
                 >
                   <img
                     src="/projects/avionics/board-3d.png"
-                    width="904"
-                    height="1262"
-                    alt="3D CAD render of Owen’s HUACR Avionics v1.0 PCB, showing the microcontroller, connectors, sensor packages, and four mounting holes."
+                    width="1250"
+                    height="892"
+                    alt="Black HUAC v1.2 flight computer PCB with the controller in the center, green screw terminals on the right, and four corner mounting holes."
                   />
                 </a>
-                <figcaption>HUACR Avionics v1.0 · 3D PCB render</figcaption>
+                <figcaption>HUAC flight computer v1.2 · 3D PCB render</figcaption>
               </figure>
             </div>
             <h4 className="technical-heading">Hardware architecture</h4>
@@ -231,8 +233,8 @@ export default function Home() {
                 >
                   <img
                     src="/projects/avionics/schematic.png"
-                    width="1798"
-                    height="1358"
+                    width="1432"
+                    height="1094"
                     loading="lazy"
                     alt="Flight-computer schematic showing the STM32F405, barometer, IMU, regulator, microSD socket, debug header, and output circuitry."
                   />
@@ -256,8 +258,8 @@ export default function Home() {
                 >
                   <img
                     src="/projects/avionics/pcb-layout.png"
-                    width="898"
-                    height="1212"
+                    width="958"
+                    height="1304"
                     loading="lazy"
                     alt="KiCad PCB layout showing component placement, routed traces, copper fill, and mounting holes."
                   />

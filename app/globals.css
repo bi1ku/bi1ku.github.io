@@ -564,7 +564,8 @@ footer a {
   align-items: start;
 }
 .avionics-render {
-  max-width: 340px;
+  width: 100%;
+  max-width: 460px;
   justify-self: center;
 }
 .avionics-render img {
@@ -627,12 +628,163 @@ footer a {
     grid-template-columns: 1fr;
   }
   .avionics-render {
-    width: 100%;
-    max-width: 280px;
+    max-width: 400px;
   }
   .pcb-detail {
     max-width: 280px;
     justify-self: center;
+  }
+}
+
+
+.avionics-overview .links {
+  align-items: center;
+}
+.history-trigger,
+.flight-history button {
+  cursor: pointer;
+  color: var(--accent);
+}
+.history-trigger,
+.history-heading button {
+  padding: 3px 12px;
+  border: 1px solid #b9c6c9;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+.history-trigger:hover,
+.flight-history button:hover {
+  background: #edf1ef;
+}
+.history-trigger:focus-visible,
+.flight-history :is(button, select, a):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+html:has(.flight-history[open]) {
+  overflow: hidden;
+}
+.flight-history {
+  width: min(780px, calc(100% - 28px));
+  max-height: min(86dvh, 760px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 14px 60px #18202530;
+}
+.flight-history::backdrop {
+  background: rgb(24 32 36 / 48%);
+}
+.history-panel {
+  padding: clamp(16px, 3vw, 28px);
+}
+.history-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.history-heading .eyebrow {
+  margin-bottom: 5px;
+}
+.history-body {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  gap: 20px;
+  margin-top: 18px;
+}
+.history-body .history-stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.history-stages li {
+  margin: 0;
+  padding: 0;
+}
+.history-stages button {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  border-left: 2px solid var(--line);
+  color: var(--ink);
+  text-align: left;
+  line-height: 1.35;
+}
+.history-stages button span {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.history-stages button[aria-current] {
+  border-color: var(--accent);
+  background: #e8eeec;
+}
+.history-select {
+  display: none;
+}
+.history-views {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.history-views button {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.history-views button[aria-pressed="true"] {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+.history-image {
+  display: grid;
+  place-items: center;
+  height: clamp(155px, 39dvh, 330px);
+  background: #eeefec;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.history-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+.history-content figcaption {
+  font-size: 0.875rem;
+}
+.history-content figcaption a {
+  white-space: nowrap;
+  text-decoration: underline;
+}
+@media (max-width: 600px) {
+  .history-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .history-stages {
+    display: none;
+  }
+  .history-select {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: white;
+    font-size: 1rem;
   }
 }
 
