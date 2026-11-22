@@ -520,18 +520,16 @@ export default function Home() {
                 Science at Harvard College in Cambridge, Massachusetts.
               </p>
               <p>
-                Outside of building things, I like playing and watching sports:
-                basketball, badminton, football, soccer—the whole shebang. I’m
-                also into biking and video games, from FPS games to whatever
-                ridiculous game my friends have talked me into this week. I used
-                to take competitive gaming pretty seriously, but I’ve since
-                retired to preserve my remaining two brain cells.
+                I like playing and watching basketball, badminton, football,
+                and soccer. I also enjoy biking and playing video games with
+                friends, usually FPS games or whatever we feel like playing.
+                I used to be competitive about games, but I take them less
+                seriously now.
               </p>
               <p>
-                Mostly, I’m a pretty laid-back guy who likes spending time with
-                family, being goofy with friends, and geeking out over tech.
-                Sometimes that turns into a project. Sometimes it’s just a good
-                afternoon doing absolutely nothing.
+                I’m pretty laid-back. I like spending time with my family,
+                joking around with friends, keeping up with tech, and building
+                things.
               </p>
               <a href="/Owen_Shi_Resume.pdf" target="_blank" rel="noreferrer">
                 View Resume <span className="link-note">PDF ↗</span>
