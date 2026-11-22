@@ -1,3 +1,7 @@
+"use client";
+
+import { useRef, useState } from "react";
+
 const matchUrl = "https://www.youtube.com/watch?v=JPtpfMJDVc4&t=22800s";
 const photos = [
   { file: "competition", label: "Team 479 on the field", alt: "Robot 479 at a competition with its lift extended." },
@@ -9,14 +13,47 @@ const photos = [
 ];
 
 export default function RoboticsProject() {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const photo = photos[photoIndex];
+
+  function changePhoto(direction: number) {
+    setPhotoIndex((current) => (current + direction + photos.length) % photos.length);
+  }
+
   return (
     <article className="robotics-project" id="robotics" aria-labelledby="robotics-title">
       <div className="project-copy">
         <p className="eyebrow">Stuy Fusion · FTC 479</p>
         <h3 id="robotics-title">Competition robotics</h3>
         <p className="robotics-description">
-          My role was programming only. I wrote the software that used AprilTags
-          to locate our robot on the field and line it up autonomously.
+          As vice president of Stuy Fusion, I focused on the software that
+          connects what our robot sees to how it moves: field localization,
+          autonomous alignment, and responsive controls for competition.
+        </p>
+        <dl className="robotics-contributions">
+          <div>
+            <dt>Vision & autonomous motion</dt>
+            <dd>I built an AprilTag vision pipeline for field localization,
+              odometry, and autonomous alignment, helping the robot determine
+              where it is and line up on the field.</dd>
+          </div>
+          <div>
+            <dt>Controls & software architecture</dt>
+            <dd>I implemented multithreaded robot controls and migrated our
+              code to a command-based architecture, making subsystems easier
+              to test, reuse, and coordinate during autonomous routines.</dd>
+          </div>
+          <div>
+            <dt>Teaching & team leadership</dt>
+            <dd>I designed beginner workshops, delegated technical projects
+              across roughly 32 members, and built the team website to support
+              recruiting, outreach, and sponsors.</dd>
+          </div>
+        </dl>
+        <p className="robotics-sources">
+          <a href="https://github.com/fusion479/deep" target="_blank" rel="noreferrer">Into the Deep code</a>
+          {" · "}<a href="https://github.com/fusion479/decode" target="_blank" rel="noreferrer">DECODE code</a>
         </p>
         <a
           className="robotics-match"
@@ -33,16 +70,46 @@ export default function RoboticsProject() {
         </p>
       </div>
 
-      <div className="robotics-gallery" role="group" aria-label="Team robots and CAD models">
-        {photos.map(({ file, label, alt }) => (
-          <figure key={file}>
-            <a href={`/projects/robotics/${file}.webp`} target="_blank" rel="noreferrer">
-              <img src={`/projects/robotics/${file}.webp`} alt={alt} loading="lazy" />
-            </a>
-            <figcaption>{label}</figcaption>
-          </figure>
-        ))}
+      <div className="robotics-gallery">
+        <figure>
+          <button type="button" className="robotics-feature" aria-haspopup="dialog"
+            aria-label={`Enlarge ${photo.label}`} onClick={() => dialog.current?.showModal()}>
+            <img src={`/projects/robotics/${photo.file}.webp`} alt={photo.alt} loading="lazy" />
+            <span>View gallery · {photos.length} images</span>
+          </button>
+          <figcaption aria-live="polite">{photo.label}</figcaption>
+        </figure>
+        <div className="robotics-gallery-controls" aria-label="Gallery navigation">
+          <button type="button" onClick={() => changePhoto(-1)}>Previous</button>
+          <span>{photoIndex + 1} / {photos.length}</span>
+          <button type="button" onClick={() => changePhoto(1)}>Next</button>
+        </div>
+        <p className="robotics-credit">Team robots & CAD · My contribution was software.</p>
       </div>
+      <dialog ref={dialog} className="robotics-lightbox" aria-labelledby="robotics-gallery-title"
+        onClick={(event) => { if (event.target === event.currentTarget) dialog.current?.close(); }}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+            event.preventDefault();
+            changePhoto(event.key === "ArrowLeft" ? -1 : 1);
+          }
+        }}>
+        <div className="robotics-lightbox-panel">
+          <header>
+            <h2 id="robotics-gallery-title">Team robots & CAD</h2>
+            <button type="button" autoFocus onClick={() => dialog.current?.close()}>Close</button>
+          </header>
+          <figure>
+            <img src={`/projects/robotics/${photo.file}.webp`} alt={photo.alt} />
+            <figcaption aria-live="polite">{photo.label}</figcaption>
+          </figure>
+          <div className="robotics-gallery-controls">
+            <button type="button" onClick={() => changePhoto(-1)}>Previous</button>
+            <a href={`/projects/robotics/${photo.file}.webp`} target="_blank" rel="noreferrer">Original image · {photoIndex + 1} / {photos.length}</a>
+            <button type="button" onClick={() => changePhoto(1)}>Next</button>
+          </div>
+        </div>
+      </dialog>
     </article>
   );
 }

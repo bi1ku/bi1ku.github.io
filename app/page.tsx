@@ -179,15 +179,15 @@ export default function Home() {
               </div>
               <figure className="avionics-render">
                 <a
-                  href="/projects/avionics/board-3d.png"
+                  href="/projects/avionics/board-vertical.png"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <img
-                    src="/projects/avionics/board-3d.png"
-                    width="1250"
-                    height="892"
-                    alt="Black HUAC v1.2 flight computer PCB with the controller in the center, green screw terminals on the right, and four corner mounting holes."
+                    src="/projects/avionics/board-vertical.png"
+                    width="906"
+                    height="1230"
+                    alt="Vertical view of the black HUAC v1.2 flight computer PCB, with green screw terminals at the top, a central controller, and four corner mounting holes."
                   />
                 </a>
                 <figcaption>HUAC flight computer v1.2 · 3D PCB render</figcaption>
