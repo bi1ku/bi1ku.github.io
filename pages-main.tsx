@@ -4,7 +4,7 @@ import Home from "./app/page";
 import "./app/globals.css";
 
 // Visitor analytics worker (see analytics/README.md). Leave empty to disable.
-const ANALYTICS_URL = "";
+const ANALYTICS_URL = "https://portfolio-analytics.bi1ku.workers.dev";
 
 function reportVisit() {
   if (!ANALYTICS_URL || ["localhost", "127.0.0.1"].includes(window.location.hostname)) return;
