@@ -1,4 +1,5 @@
 import FlightComputerHistory from "./flight-computer-history";
+import ArrowIcon from "./arrow-icon";
 import RoboticsProject from "./robotics-project";
 import ProjectDemo from "./project-demo";
 import ScrollTransitions from "./scroll-transitions";
@@ -7,7 +8,7 @@ import type { ReactNode } from "react";
 function External({ href, children }: { href: string; children: ReactNode }) {
   return (
     <a href={href} target="_blank" rel="noreferrer">
-      {children} <span aria-hidden="true">↗</span>
+      {children} <ArrowIcon />
     </a>
   );
 }
@@ -92,7 +93,7 @@ export default function Home() {
           <a href="#experience">Experience</a>
           <a href="#about">About</a>
           <a href="mailto:2008owenshi@gmail.com">
-            Contact <span aria-hidden="true">↗</span>
+            Contact <ArrowIcon />
           </a>
         </nav>
       </header>
@@ -114,10 +115,10 @@ export default function Home() {
                 LinkedIn
               </External>
               <a href="mailto:2008owenshi@gmail.com">
-                Email <span aria-hidden="true">↗</span>
+                Email <ArrowIcon />
               </a>
               <a href="/Owen_Shi_Resume.pdf" target="_blank" rel="noreferrer">
-                Resume <span className="link-note">PDF ↗</span>
+                Resume <span className="link-note">PDF <ArrowIcon /></span>
               </a>
             </div>
           </div>
@@ -249,7 +250,7 @@ export default function Home() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Open full resolution to inspect component values ↗
+                    Open full resolution to inspect component values <ArrowIcon />
                   </a>
                 </figcaption>
               </figure>
@@ -274,7 +275,7 @@ export default function Home() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    View routing at full size ↗
+                    View routing at full size <ArrowIcon />
                   </a>
                 </figcaption>
               </figure>
@@ -402,7 +403,7 @@ export default function Home() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Watch full size ↗
+                  Watch full size <ArrowIcon />
                 </a>
               </figcaption>
             </figure>
@@ -447,7 +448,7 @@ export default function Home() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    View full size ↗
+                    View full size <ArrowIcon />
                   </a>
                 </figcaption>
               </figure>
@@ -532,7 +533,7 @@ export default function Home() {
                 things.
               </p>
               <a href="/Owen_Shi_Resume.pdf" target="_blank" rel="noreferrer">
-                View Resume <span className="link-note">PDF ↗</span>
+                View Resume <span className="link-note">PDF <ArrowIcon /></span>
               </a>
             </div>
             <div>
@@ -561,7 +562,7 @@ export default function Home() {
       </main>
       <footer>
         <span>Owen Shi</span>
-        <a href="#">Back to top ↑</a>
+        <a href="#">Back to top <ArrowIcon direction="up" /></a>
       </footer>
     </>
   );

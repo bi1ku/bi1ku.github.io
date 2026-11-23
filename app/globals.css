@@ -164,6 +164,11 @@ footer {
   color: var(--muted);
   margin-left: 3px;
 }
+.arrow-icon {
+  display: inline-block;
+  vertical-align: -0.125em;
+  flex-shrink: 0;
+}
 .section-heading {
   display: flex;
   align-items: baseline;

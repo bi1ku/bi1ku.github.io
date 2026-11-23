@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ArrowIcon from "./arrow-icon";
 import capture from "./bik-capture.json";
 
 const examples = [
@@ -90,7 +91,7 @@ export default function ProjectDemo() {
                 <button type="button" aria-pressed={view === "source"} onClick={() => setView("source")}>Source</button>
                 <button type="button" aria-pressed={view === "assembly"} onClick={() => setView("assembly")}>MIPS</button>
               </div>
-              <a href={`/projects/bik/${sample.id}.${view === "source" ? "bik" : "asm"}`} download>Download ↓</a>
+              <a href={`/projects/bik/${sample.id}.${view === "source" ? "bik" : "asm"}`} download>Download <ArrowIcon direction="down" /></a>
             </div>
             <div className="bik-filename">{sample.id}.{view === "source" ? "bik" : "asm"}<span>{view === "source" ? "bik" : "MIPS32"}</span></div>
             <pre key={`${selected}-${view}`} className="bik-code" tabIndex={0} aria-label={view === "source" ? "bik source code" : "Generated MIPS assembly"}>
@@ -124,7 +125,7 @@ export default function ProjectDemo() {
       </div>
       <figcaption>
         <span>Real compiler + SPIM output. Replayed in your browser.</span>
-        <a href={`${capture.repository}/commit/${capture.commit}`} target="_blank" rel="noreferrer">Captured at {capture.commit.slice(0, 7)} ↗</a>
+        <a href={`${capture.repository}/commit/${capture.commit}`} target="_blank" rel="noreferrer">Captured at {capture.commit.slice(0, 7)} <ArrowIcon /></a>
       </figcaption>
     </figure>
   );
