@@ -42,3 +42,7 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# analytics worker local state and secrets
+/analytics/.wrangler/
+.dev.vars*
