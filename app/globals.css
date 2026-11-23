@@ -24,6 +24,17 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: url("/cursors/arrow.svg") 2 2, auto;
+  }
+  a[href], button:not(:disabled):not(.robotics-feature), select:not(:disabled), summary {
+    cursor: url("/cursors/pointer.svg") 9 2, pointer;
+  }
+  input, textarea, [contenteditable="true"] {
+    cursor: text;
+  }
+}
 a {
   color: var(--accent);
   text-decoration-thickness: 1px;
