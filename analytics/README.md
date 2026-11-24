@@ -37,6 +37,28 @@ npx wrangler secret put IPAPI_KEY -c wrangler.toml
 
 This sends visitor IP addresses to ipapi.is.
 
+## Tracking links (`?ref=`)
+
+Add a `ref` tag to any link you share and the dashboard groups visits by it:
+
+```
+https://bi1ku.github.io/?ref=resume
+https://bi1ku.github.io/?ref=linkedin
+```
+
+`utm_source=` works too. Tags are lowercased and limited to letters, digits and `-._~:@+`.
+Each visit also records the previous website (`document.referrer`); most browsers only
+send its domain, but the full URL is shown whenever one arrives.
+
+### Upgrading an existing deployment
+
+Apply new migrations **before** deploying the worker, or hits will fail to save:
+
+```bash
+npx wrangler d1 migrations apply portfolio-analytics --remote -c wrangler.toml
+npx wrangler deploy -c wrangler.toml
+```
+
 ## Local testing
 
 ```bash

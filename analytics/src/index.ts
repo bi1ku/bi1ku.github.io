@@ -16,6 +16,7 @@ type Privacy = "vpn" | "proxy" | "tor" | "relay" | "datacenter" | "none" | "unkn
 
 interface HitBody {
   path?: unknown;
+  ref?: unknown;
   referrer?: unknown;
   screen?: unknown;
   language?: unknown;
@@ -30,6 +31,12 @@ function clip(value: unknown, max: number): string | null {
   if (typeof value !== "string") return null;
   const trimmed = value.trim();
   return trimmed ? trimmed.slice(0, max) : null;
+}
+
+/** Normalises a ?ref= tag: lowercase, limited to a safe slug-like charset. */
+function cleanRef(value: unknown): string | null {
+  const ref = clip(value, 64)?.toLowerCase().replace(/[^a-z0-9._~:@+-]+/g, "-").replace(/^-+|-+$/g, "");
+  return ref || null;
 }
 
 function escapeHtml(value: unknown): string {
@@ -139,15 +146,16 @@ async function recordHit(request: Request, env: Env, body: HitBody): Promise<voi
   const classified = (ip && (await classifyByIpapi(env, ip))) || classifyByNetwork(asn, asOrg);
 
   await env.DB.prepare(
-    `INSERT INTO visits (ts, visitor, ip, path, referrer, user_agent, country, region, city, timezone,
+    `INSERT INTO visits (ts, visitor, ip, path, ref, referrer, user_agent, country, region, city, timezone,
        asn, as_org, screen, language, privacy, privacy_detail, is_bot)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   )
     .bind(
       Date.now(),
       await sha256(`${ip}|${ua}`),
       ip || null,
       clip(body.path, 300),
+      cleanRef(body.ref),
       clip(body.referrer, 500),
       ua || null,
       clip(cf.country, 8),
@@ -227,6 +235,35 @@ function referrerHost(ref: string | null): string {
   }
 }
 
+function ownHosts(env: Env): Set<string> {
+  const hosts = new Set<string>();
+  for (const origin of env.ALLOWED_ORIGINS.split(",")) {
+    try {
+      hosts.add(new URL(origin.trim()).hostname.replace(/^www\./, ""));
+    } catch {
+      /* ignore malformed entries */
+    }
+  }
+  return hosts;
+}
+
+/** The previous website as escaped HTML: a link for http(s) URLs, plain text otherwise. */
+function referrerLink(ref: string | null): string {
+  if (!ref) return `<span class="dim">Direct / none</span>`;
+  let display = ref;
+  let safe = false;
+  try {
+    const u = new URL(ref);
+    safe = u.protocol === "http:" || u.protocol === "https:";
+    display = `${u.hostname.replace(/^www\./, "")}${u.pathname === "/" ? "" : u.pathname}${u.search}`;
+  } catch {
+    /* not a URL; show as text */
+  }
+  return safe
+    ? `<a class="ref-url" href="${escapeHtml(ref)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(ref)}">${escapeHtml(display)}</a>`
+    : `<span class="ref-url" title="${escapeHtml(ref)}">${escapeHtml(display)}</span>`;
+}
+
 function place(r: { city: string | null; region: string | null; country: string | null }): string {
   const parts = [r.city, r.region, r.country].filter(Boolean);
   return parts.length ? `${flag(r.country)} ${parts.join(", ")}`.trim() : "Unknown";
@@ -294,7 +331,7 @@ async function renderDashboard(env: Env, url: URL, nonce: string): Promise<strin
   const where = `ts >= ?1 ${includeBots ? "" : "AND is_bot = 0"}`;
   const q = (sql: string) => env.DB.prepare(sql).bind(since);
 
-  const [totals, daily, countries, cities, orgs, privacy, refs, pages, recent] = await env.DB.batch([
+  const [totals, daily, countries, cities, orgs, privacy, refs, tags, pages, recent] = await env.DB.batch([
     q(`SELECT COUNT(*) AS views, COUNT(DISTINCT visitor) AS visitors, COUNT(DISTINCT country) AS countries,
          SUM(privacy IN ('vpn','proxy','tor','relay','datacenter')) AS masked FROM visits WHERE ${where}`),
     q(`SELECT strftime('%Y-%m-%d', ts / 1000, 'unixepoch') AS day, COUNT(*) AS views, COUNT(DISTINCT visitor) AS visitors
@@ -303,9 +340,11 @@ async function renderDashboard(env: Env, url: URL, nonce: string): Promise<strin
     q(`SELECT city, region, country, COUNT(DISTINCT visitor) AS n FROM visits WHERE ${where} GROUP BY city, region, country ORDER BY n DESC LIMIT 12`),
     q(`SELECT as_org, asn, COUNT(DISTINCT visitor) AS n FROM visits WHERE ${where} GROUP BY as_org, asn ORDER BY n DESC LIMIT 15`),
     q(`SELECT privacy, COUNT(DISTINCT visitor) AS n FROM visits WHERE ${where} GROUP BY privacy ORDER BY n DESC`),
-    q(`SELECT referrer, COUNT(*) AS n FROM visits WHERE ${where} GROUP BY referrer ORDER BY n DESC LIMIT 50`),
+    q(`SELECT referrer, COUNT(*) AS n, COUNT(DISTINCT visitor) AS v FROM visits WHERE ${where} GROUP BY referrer ORDER BY n DESC LIMIT 200`),
+    q(`SELECT ref, COUNT(*) AS n, COUNT(DISTINCT visitor) AS v, MAX(ts) AS last FROM visits WHERE ${where} AND ref IS NOT NULL
+         GROUP BY ref ORDER BY v DESC, n DESC LIMIT 25`),
     q(`SELECT path, COUNT(*) AS n FROM visits WHERE ${where} GROUP BY path ORDER BY n DESC LIMIT 10`),
-    q(`SELECT ts, ip, path, referrer, user_agent, country, region, city, timezone, asn, as_org, screen, language, privacy, privacy_detail, is_bot
+    q(`SELECT ts, ip, path, ref, referrer, user_agent, country, region, city, timezone, asn, as_org, screen, language, privacy, privacy_detail, is_bot
          FROM visits WHERE ${where} ORDER BY ts DESC LIMIT 150`),
   ]);
 
@@ -329,12 +368,25 @@ async function renderDashboard(env: Env, url: URL, nonce: string): Promise<strin
   const privacyRows = privacy.results as { privacy: Privacy; n: number }[];
   const privacyTotal = privacyRows.reduce((s, r) => s + Number(r.n), 0);
 
-  const refCounts = new Map<string, number>();
-  for (const r of refs.results as { referrer: string | null; n: number }[]) {
+  // Previous websites, grouped by host, with the full URLs seen under each. Hits whose
+  // referrer is this site itself (reloads, in-site navigation) are counted separately.
+  const self = ownHosts(env);
+  let selfViews = 0;
+  const sites = new Map<string, { views: number; visitors: number; urls: { url: string; n: number }[] }>();
+  for (const r of refs.results as { referrer: string | null; n: number; v: number }[]) {
     const host = referrerHost(r.referrer);
-    refCounts.set(host, (refCounts.get(host) ?? 0) + Number(r.n));
+    if (r.referrer && self.has(host)) {
+      selfViews += Number(r.n);
+      continue;
+    }
+    const site = sites.get(host) ?? { views: 0, visitors: 0, urls: [] };
+    site.views += Number(r.n);
+    site.visitors += Number(r.v); // approximate: a visitor may arrive from several URLs on one site
+    if (r.referrer) site.urls.push({ url: r.referrer, n: Number(r.n) });
+    sites.set(host, site);
   }
-  const refRows = [...refCounts].sort((a, b) => b[1] - a[1]).slice(0, 10);
+  const siteRows = [...sites].sort((a, b) => b[1].views - a[1].views).slice(0, 15);
+  const tagRows = tags.results as { ref: string; n: number; v: number; last: number }[];
 
   const badge = (p: Privacy) => `<span class="badge badge-${p}">${PRIVACY_LABEL[p] ?? escapeHtml(p)}</span>`;
 
@@ -388,6 +440,9 @@ td{border-bottom:1px solid var(--grid);padding:6px 8px;vertical-align:top}td.mon
 .badge{display:inline-block;padding:1px 7px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
 .badge-vpn,.badge-tor,.badge-proxy{background:var(--crit-bg);color:var(--crit)}.badge-datacenter{background:var(--warn-bg);color:var(--warn)}
 .badge-relay{background:var(--info-bg);color:var(--info)}.badge-none{background:var(--ok-bg);color:var(--ok)}.badge-unknown{background:var(--grid);color:var(--text-2)}
+.badge-ref{background:var(--info-bg);color:var(--info)}
+.ref-url{color:var(--series);text-decoration:none;word-break:break-all}a.ref-url:hover{text-decoration:underline}
+.urls{list-style:none;margin:6px 0 0;padding:0 0 0 12px;display:grid;gap:3px;font-size:12px}
 .note{color:var(--muted);font-size:12px;margin:8px 0 0}
 details summary{cursor:pointer;color:var(--text-2)}
 </style></head><body><main>
@@ -426,10 +481,33 @@ details summary{cursor:pointer;color:var(--text-2)}
 </div>
 
 <div class="grid2">
-<section class="card"><h2>Referrers</h2>${table(
-    ["Source", "Views"],
-    refRows.map(([host, n]) => [escapeHtml(host), String(n)]),
-  )}</section>
+<section class="card"><h2>Ref tags</h2>${table(
+    ["Tag", "Visitors", "Views", "Last seen"],
+    tagRows.map((r) => [
+      `<span class="badge badge-ref">${escapeHtml(r.ref)}</span>`,
+      String(r.v),
+      String(r.n),
+      `<span class="mono dim">${escapeHtml(fmtTime(Number(r.last)))}</span>`,
+    ]),
+    "No tagged visits yet",
+  )}<p class="note">Add <span class="mono">?ref=name</span> to links you share, e.g. <span class="mono">bi1ku.github.io/?ref=linkedin</span>. <span class="mono">utm_source</span> also works.</p></section>
+<section class="card"><h2>Previous websites</h2>${table(
+    ["Came from", "Visitors", "Views"],
+    siteRows.map(([host, site]) => {
+      const urls = site.urls.sort((a, b) => b.n - a.n).slice(0, 20);
+      const label = host === "Direct / none" ? `<span class="dim">Direct / none</span>` : escapeHtml(host);
+      const detail =
+        urls.length > 1
+          ? `<details><summary>${label}</summary><ul class="urls">${urls.map((u) => `<li>${referrerLink(u.url)} <span class="dim">×${u.n}</span></li>`).join("")}</ul></details>`
+          : urls[0]
+            ? referrerLink(urls[0].url)
+            : label;
+      return [detail, String(site.visitors), String(site.views)];
+    }),
+  )}<p class="note">${selfViews ? `${selfViews} view${selfViews === 1 ? "" : "s"} from this site itself (reloads) not shown. ` : ""}Most browsers only send the previous site's domain, not the exact page.</p></section>
+</div>
+
+<div class="grid2">
 <section class="card"><h2>Pages</h2>${table(
     ["Path", "Views"],
     (pages.results as Row[]).map((r) => [`<span class="mono">${escapeHtml(r.path ?? "/")}</span>`, String(r.n)]),
@@ -444,7 +522,7 @@ details summary{cursor:pointer;color:var(--text-2)}
       `${escapeHtml(r.as_org ?? "Unknown")}`,
       `${badge(r.privacy as Privacy)}${r.privacy_detail ? `<div class="dim">${escapeHtml(r.privacy_detail)}</div>` : ""}`,
       `${escapeHtml(describeUa(r.user_agent as string | null))}${r.is_bot ? ' <span class="badge badge-unknown">bot</span>' : ""}<div class="dim">${escapeHtml(r.screen ?? "")} ${escapeHtml(r.language ?? "")}</div>`,
-      escapeHtml(referrerHost(r.referrer as string | null)),
+      `${r.ref ? `<span class="badge badge-ref">ref: ${escapeHtml(r.ref)}</span><div>` : "<div>"}${referrerLink(r.referrer as string | null)}</div>`,
       `<details><summary class="mono">${escapeHtml(r.ip ?? "—")}</summary><div class="mono dim">${escapeHtml(r.user_agent ?? "")}</div></details>`,
     ]),
     "No visits in this range yet",

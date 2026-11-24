@@ -8,8 +8,12 @@ const ANALYTICS_URL = "https://portfolio-analytics.bi1ku.workers.dev";
 
 function reportVisit() {
   if (!ANALYTICS_URL || ["localhost", "127.0.0.1"].includes(window.location.hostname)) return;
+  const params = new URLSearchParams(window.location.search);
   const body = JSON.stringify({
     path: window.location.pathname + window.location.hash,
+    // Tag added to shared links, e.g. https://bi1ku.github.io/?ref=linkedin
+    ref: params.get("ref") ?? params.get("utm_source") ?? params.get("source"),
+    // The previous website (browsers usually send only its origin, not the full URL).
     referrer: document.referrer,
     screen: `${window.screen.width}x${window.screen.height}`,
     language: navigator.language,
